@@ -1,0 +1,5 @@
+[
+  {"id":"a1","type":"inject","z":"","name":"prompt","props":[{"p":"payload"}],"repeat":"","once":false,"payload":"a ceramic mug on a wooden desk, morning window light, shallow depth of field","payloadType":"str","x":120,"y":80,"wires":[["a2"]]},
+  {"id":"a2","type":"kavel-image","z":"","name":"","prompt":"","image":"","aspectRatio":"1:1","timeout":360,"x":300,"y":80,"wires":[["a3"]]},
+  {"id":"a3","type":"debug","z":"","name":"image url","active":true,"tosidebar":true,"complete":"payload","x":480,"y":80,"wires":[]}
+]

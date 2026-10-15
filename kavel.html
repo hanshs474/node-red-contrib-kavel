@@ -1,0 +1,71 @@
+<script type="text/javascript">
+  RED.nodes.registerType("kavel-image", {
+    category: "AI",
+    color: "#F3B567",
+    defaults: {
+      name: { value: "" },
+      prompt: { value: "" },
+      image: { value: "" },
+      aspectRatio: { value: "1:1" },
+      timeout: { value: 360, validate: RED.validators.number() },
+    },
+    credentials: { apiKey: { type: "password" } },
+    inputs: 1,
+    outputs: 1,
+    icon: "font-awesome/fa-picture-o",
+    label: function () {
+      return this.name || "kavel image";
+    },
+    paletteLabel: "kavel image",
+  });
+</script>
+
+<script type="text/html" data-template-name="kavel-image">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="kavel image" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-prompt"><i class="fa fa-pencil"></i> Prompt</label>
+    <input type="text" id="node-input-prompt" placeholder="used when msg.payload is empty" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-image"><i class="fa fa-image"></i> Image URL</label>
+    <input type="text" id="node-input-image" placeholder="optional: edit this image instead" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-aspectRatio"><i class="fa fa-arrows-alt"></i> Aspect</label>
+    <input type="text" id="node-input-aspectRatio" placeholder="1:1, 16:9, 9:16, 4:3 or 3:4" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-timeout"><i class="fa fa-clock-o"></i> Timeout (s)</label>
+    <input type="text" id="node-input-timeout" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-apiKey"><i class="fa fa-key"></i> API key</label>
+    <input type="password" id="node-input-apiKey" placeholder="optional" />
+  </div>
+</script>
+
+<script type="text/html" data-help-name="kavel-image">
+  <p>Turns a prompt into an AI image with <a href="https://www.kavel.ai/?utm_source=nodered&amp;utm_medium=help">Kavel</a>, or edits an existing image, and outputs a CDN link.</p>
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>payload <span class="property-type">string</span></dt>
+    <dd>The prompt. Falls back to the node's Prompt field.</dd>
+    <dt class="optional">image <span class="property-type">string</span></dt>
+    <dd>A public http(s) image URL. When set, the node edits that image with the prompt as the instruction.</dd>
+    <dt class="optional">aspectRatio <span class="property-type">string</span></dt>
+    <dd>1:1 (default), 16:9, 9:16, 4:3 or 3:4. Text-to-image only.</dd>
+  </dl>
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>payload <span class="property-type">string</span></dt>
+    <dd>URL of the finished image.</dd>
+    <dt>kavel <span class="property-type">object</span></dt>
+    <dd><code>{ url, watermarked }</code></dd>
+  </dl>
+  <h3>Details</h3>
+  <p>Without an API key the node uses Kavel's free tier: a small daily allowance and watermarked images. Paste a key from
+  <a href="https://www.kavel.ai/settings/apikeys">kavel.ai/settings/apikeys</a> (or set <code>KAVEL_API_KEY</code>) to use your account's credits.</p>
+</script>
